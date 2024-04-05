@@ -1,3 +1,3 @@
-# Simple Architecture RISC Machine Simulator
+# Simple Architecture RISC Computer Simulator
 
 Implementing now...
