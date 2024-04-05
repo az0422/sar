@@ -1,5 +1,9 @@
 # Simple Architecture RISC Computer Simulator
 
+## How to use
+* `python3 simulator.py <programfile.bin>`
+* example: `python3 simulator.py examples/add.bin`
+
 ## Instruction
 ### Format
 
