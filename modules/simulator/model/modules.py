@@ -32,6 +32,7 @@ def decoder(in_dict, register):
     elif op >> 4 == 0x2: # mread, pop
         mem = 1
         destM = in_dict["rB"]
+        data_b = 0
 
         if op & 0x0F:
             data_a = register[0xFE]
@@ -42,6 +43,7 @@ def decoder(in_dict, register):
     elif op >> 4 == 0x3: # mwrite, push
         mem = 2
         data_c = data_a
+        data_a = 0
 
         if op & 0x0F:
             data_a = register[0xFE]

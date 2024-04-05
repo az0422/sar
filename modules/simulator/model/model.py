@@ -35,5 +35,3 @@ class Model:
 
         self.register[0xFF] = 0
 
-        return self.register[0x100], f, d, a, m
-
