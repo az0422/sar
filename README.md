@@ -34,8 +34,8 @@
 | 56            | rB = ~rA                                  |
 | 57            | rB ^= rA                                  |
 | 60            | jump (dest: constant)                     |
-| 61            | jle (dest: constant)                      |
-| 62            | jl (dest: constant)                       |
+| 61            | jl (dest: constant)                      |
+| 62            | jle (dest: constant)                       |
 | 63            | je (dest: constant)                       |
 | 64            | jge (dest: constant)                      |
 | 65            | jg (dest: constant)                       |
