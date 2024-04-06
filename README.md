@@ -25,17 +25,17 @@
 | 30            | write to memory (data: rA, dest: rB)      |
 | 31            | push (data: rA)                           |
 | 40            | constant to rB                            |
-| 50            | rB += rA                                  |
-| 51            | rB -= rA                                  |
-| 52            | rB >>= rA                                 |
-| 53            | rB <<= rA                                 |
-| 54            | rB &= rA                                  |
-| 55            | rB |= rA                                  |
+| 50            | rB = rA + rB                              |
+| 51            | rB = rA - rB                              |
+| 52            | rB = rA >> rB                             |
+| 53            | rB = rA << rB                             |
+| 54            | rB = rA & rB                              |
+| 55            | rB = rA | rB                              |
 | 56            | rB = ~rA                                  |
-| 57            | rB ^= rA                                  |
+| 57            | rB = rA ^ rB                              |
 | 60            | jump (dest: constant)                     |
-| 61            | jl (dest: constant)                      |
-| 62            | jle (dest: constant)                       |
+| 61            | jl (dest: constant)                       |
+| 62            | jle (dest: constant)                      |
 | 63            | je (dest: constant)                       |
 | 64            | jge (dest: constant)                      |
 | 65            | jg (dest: constant)                       |
