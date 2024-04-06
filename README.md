@@ -7,7 +7,7 @@
 ## Instruction
 ### Format
 
-* length 7+1 bytes
+* length: 7+1 bytes
 * 1st byte: opcode
 * 2nd byte: rA
 * 3rd byte: rB
@@ -44,6 +44,8 @@
 | 71            | ret                                       |
 
 ### Registers
+* Generic Registers: 00-FD
+
 | Index (hex)   | Explain                                   |
 |---------------|-------------------------------------------|
 | 00 - 1F       | main                                      |
