@@ -1,4 +1,4 @@
-# Simple Architecture RISC Computer Simulator
+# Simple Architecture RISC Simulator
 
 ## How to use
 * `python3 simulator.py <programfile.bin>`
