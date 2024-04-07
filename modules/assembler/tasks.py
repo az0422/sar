@@ -1,4 +1,5 @@
 import re
+import sys
 
 from .utils.opcodes import opcodes, registers
 from .utils.parsor import parsor, label_count
@@ -28,6 +29,7 @@ def run(asm):
                 n[7] = opcodes[p["opcode"]][0][1]
             except:
                 print("line %d\n%s\nSyntaxError: invalid syntax" % (p["index"], p["original"]))
+                sys.exit()
         
         result.extend(n)
     

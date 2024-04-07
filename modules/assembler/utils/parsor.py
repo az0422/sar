@@ -12,7 +12,7 @@ def parsor(asm):
         record_s = record.strip()
         r = re.search("(?P<label>[0-9a-zA-Z._]+:)?"
                     + "(\s+)?((?P<opcode>(" + opcodes_str + "))"
-                    + "(\s+(?P<ra>%(" + registers_str +"))(\s*,\s+(?P<rb>%(" + registers_str + ")))?)?"
+                    + "(\s+(?P<ra>%(" + registers_str + "))(\s*,\s*(?P<rb>%(" + registers_str + ")))?)?"
                     + "(\s*(,\s*)?(?P<const>\$[0-9a-zA-Z._]+))?)?"
                     + "(?P<comment>#.*)?", record_s).groupdict()
         
@@ -38,9 +38,16 @@ def trim(parse):
 
 def label_count(record):
     labels = {}
+    pc = 0
 
-    for i, r in enumerate(record):
-        if r["label"] is not None:
-            labels["$" + r["label"][:-1]] = i * 8
+    for r in record:
+        if r["label"]  is not None:
+            labels["$" + r["label"][:-1]] = pc
+        
+        if r["opcode"] == ".space":
+            pc += eval(r["const"][1:])
+
+        if r["opcode"] is not None:
+            pc += 8
     
     return labels

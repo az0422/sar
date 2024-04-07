@@ -3,7 +3,7 @@ opcodes = {
     # OP: [[head, tail], [rA, rB, const]]
     "halt": [[0x00, 0xFF], [False, False, False]],
     "nop": [[0x10, 0xFF], [False, False, False]],
-    "mread": [[0x20, 0xFF], [False, True, False]],
+    "mread": [[0x20, 0xFF], [True, True, False]],
     "pop": [[0x21, 0xFF], [True, False, False]],
     "mwrite": [[0x30, 0xFF], [True, False, False]],
     "push": [[0x31, 0xFF], [True, False, False]],
