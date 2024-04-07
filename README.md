@@ -1,7 +1,7 @@
 # Simple Architecture RISC Simulator
 
 ## Outline
-* This archictecture has only one format instruction.
+* This archictecture has only one pattern instruction.
 * Instruction length is only 8 bytes (7+1 bytes.)
 * Structure of this architecture is very simple.
 * I drunk highball, that was delicious and made my brain smart (just for a moment.)
