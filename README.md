@@ -59,3 +59,8 @@
 | FE            | stack point                               |
 | FF            | null (constant of 0)                      |
 | PC            | Program Counter                           |
+
+## TODO
+* make assembler
+* find the bugs and fix
+* Add some features for architecture
