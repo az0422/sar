@@ -76,3 +76,4 @@ example: `python3 simulator.py examples/add.bin`
 ## TODO
 * Find the bugs and fix
 * Add some features for architecture
+* Add more examples
