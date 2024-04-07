@@ -22,32 +22,32 @@
 
 ### Instruction set
 
-| opcode (hex)  | Explain                                   |
-|---------------|-------------------------------------------|
-| 00            | halt                                      |
-| 10            | nop                                       |
-| 20            | read from memory (addr: rA, dest: rB)     |
-| 21            | pop (dest: rB)                            |
-| 30            | write to memory (data: rA, dest: rB)      |
-| 31            | push (data: rA)                           |
-| 40            | constant to rB                            |
-| 50            | rB = rA + rB                              |
-| 51            | rB = rA - rB                              |
-| 52            | rB = rA >> rB                             |
-| 53            | rB = rA << rB                             |
-| 54            | rB = rA & rB                              |
-| 55            | rB = rA | rB                              |
-| 56            | rB = ~rA                                  |
-| 57            | rB = rA ^ rB                              |
-| 60            | jump (dest: constant)                     |
-| 61            | jl (dest: constant)                       |
-| 62            | jle (dest: constant)                      |
-| 63            | je (dest: constant)                       |
-| 64            | jge (dest: constant)                      |
-| 65            | jg (dest: constant)                       |
-| 66            | jne (dest: constant)                      |
-| 70            | call (dest: constant)                     |
-| 71            | ret                                       |
+| opcode (hex)  | format             | Explain                                   |
+|---------------|--------------------|-------------------------------------------|
+| 00            | 00 FF FF 00000000  | halt                                      |
+| 10            | 10 FF FF 00000000  | nop                                       |
+| 20            | 20 rA rB 00000000  | read from memory (addr: rA, dest: rB)     |
+| 21            | 21 FF rB 00000000  | pop (dest: rB)                            |
+| 30            | 30 rA rB 00000000  | write to memory (data: rA, dest: rB)      |
+| 31            | 31 rA FF 00000000  | push (data: rA)                           |
+| 40            | 40 FF rA constant  | constant to rB                            |
+| 50            | 50 rA rB 00000000  | rB = rA + rB                              |
+| 51            | 51 rA rB 00000000  | rB = rA - rB                              |
+| 52            | 52 rA rB 00000000  | rB = rA >> rB                             |
+| 53            | 53 rA rB 00000000  | rB = rA << rB                             |
+| 54            | 54 rA rB 00000000  | rB = rA & rB                              |
+| 55            | 55 rA rB 00000000  | rB = rA | rB                              |
+| 56            | 56 rA rB 00000000  | rB = ~rA                                  |
+| 57            | 57 rA rB 00000000  | rB = rA ^ rB                              |
+| 60            | 60 FF FF constant  | jump (dest: constant)                     |
+| 61            | 61 FF FF constant  | jl (dest: constant)                       |
+| 62            | 62 FF FF constant  | jle (dest: constant)                      |
+| 63            | 63 FF FF constant  | je (dest: constant)                       |
+| 64            | 64 FF FF constant  | jge (dest: constant)                      |
+| 65            | 65 FF FF constant  | jg (dest: constant)                       |
+| 66            | 66 FF FF constant  | jne (dest: constant)                      |
+| 70            | 70 FF FF constant  | call (dest: constant)                     |
+| 71            | 71 FF FF 00000000  | ret                                       |
 
 ### Registers
 * Generic Registers: 00-FD
