@@ -1,5 +1,11 @@
 # Simple Architecture RISC Simulator
 
+## Outline
+* This archictecture has only one format instruction.
+* Instruction length is only 8 bytes (7+1 bytes.)
+* Structure of this architecture is very simple.
+* I drunk highball, that was delicious and made my brain smart (just for a moment.)
+
 ## How to use
 * `python3 simulator.py <programfile.bin>`
 * example: `python3 simulator.py examples/add.bin`
@@ -61,6 +67,6 @@
 | PC            | Program Counter                           |
 
 ## TODO
-* make assembler
-* find the bugs and fix
+* Make assembler
+* Find the bugs and fix
 * Add some features for architecture
