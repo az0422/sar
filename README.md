@@ -7,8 +7,15 @@
 * I drunk highball, that was delicious and made my brain smart (just for a moment.)
 
 ## How to use
-* `python3 simulator.py <programfile.bin>`
-* example: `python3 simulator.py examples/add.bin`
+### Assembler
+`python3 assembler.py <assembly.s>`
+
+example: `python3 assembler.py test.s`
+
+### Simulator
+`python3 simulator.py <programfile.bin>`
+
+example: `python3 simulator.py examples/add.bin`
 
 ## Instruction
 ### Format
@@ -67,6 +74,5 @@
 | PC            | Program Counter                           |
 
 ## TODO
-* Make assembler
 * Find the bugs and fix
 * Add some features for architecture
