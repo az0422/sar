@@ -59,19 +59,19 @@ example: `python3 simulator.py examples/add.bin`
 ### Registers
 * Generic Registers: 00-FD
 
-| Index (hex)   | Explain                                   |
-|---------------|-------------------------------------------|
-| 00 - 1F       | main                                      |
-| 20 - 3F       | cycle                                     |
-| 40 - 5F       | data                                      |
-| 60 - 7F       | memory address                            |
-| 80 - 9F       | arguments of function                     |
-| A0 - BF       | for inside of function                    |
-| C0 - CF       | IO data                                   |
-| E0 - FD       | system variable                           |
-| FE            | stack point                               |
-| FF            | null (constant of 0)                      |
-| PC            | Program Counter                           |
+| Index (hex)   | Name    | Explain                                   |
+|---------------|---------|-------------------------------------------|
+| 00 - 1F       | main0-1f| main                                      |
+| 20 - 3F       | cycl0-1f| cycle                                     |
+| 40 - 5F       | data0-1f| data                                      |
+| 60 - 7F       | addr0-1f| memory address                            |
+| 80 - 9F       | args0-1f| arguments of function                     |
+| A0 - BF       | func0-1f| for inside of function                    |
+| C0 - CF       | iovr0-1f| IO data                                   |
+| E0 - FD       | sysm0-1d| system variable                           |
+| FE            | stck    | stack point                               |
+| FF            | null    | null (constant of 0)                      |
+| PC            | -       | Program Counter                           |
 
 ## TODO
 * Find the bugs and fix
