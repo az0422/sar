@@ -2,7 +2,7 @@ import re
 
 from .opcodes import opcodes, registers
 
-opcodes_str = "|".join([s for s in opcodes.keys()])
+opcodes_str = "|".join(sorted(opcodes.keys(), key=len, reverse=True))
 registers_str = "|".join([s for s in registers.keys()])
 
 def parsor(asm):
