@@ -2,17 +2,14 @@ import re
 
 from .opcodes import opcodes, registers
 
-opcodes_str = "|".join([s for s in opcodes.keys()])
-registers_str = "|".join([s for s in registers.keys()])
-
 def parsor(asm):
     result = []
 
     for i, record in enumerate(asm.split("\n")):
         record_s = record.strip()
         r = re.search("(?P<label>[0-9a-zA-Z._]+:)?"
-                    + "(\s+)?((?P<opcode>(" + opcodes_str + "))"
-                    + "(\s+(?P<ra>%(" + registers_str + "))(\s*,\s*(?P<rb>%(" + registers_str + ")))?)?"
+                    + "(\s+)?((?P<opcode>[.a-z0-9]+)"
+                    + "(\s+(?P<ra>%[a-z0-9]+)(\s*,\s*(?P<rb>%[a-z0-9]+))?)?"
                     + "(\s*(,\s*)?(?P<const>\$[0-9a-zA-Z._]+))?)?"
                     + "(?P<comment>#.*)?", record_s).groupdict()
         

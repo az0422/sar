@@ -3,10 +3,13 @@ from .model.model import Model
 def run(program):
     machine = Model(program)
     
-    while not machine.status:
-        machine.run()
+    try:
+        while not machine.status:
+            machine.run()
+    except KeyboardInterrupt:
+        return machine.memory, machine.register, True
     
-    return machine.memory, machine.register
+    return machine.memory, machine.register, False
 
 def print_memory(memory):
     for i, b in enumerate(memory):

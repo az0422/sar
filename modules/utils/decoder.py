@@ -15,6 +15,3 @@ def const2arr(const, length=8):
     
     return result
 
-
-
-    

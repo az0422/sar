@@ -7,7 +7,8 @@ dmp = False
 if len(sys.argv) == 3 and sys.argv[2] == "dump":
     dmp = True
 
-memory, register = run(program)
+memory, register, flag = run(program)
+
 
 print("===[RUN RESULT]==========================================")
 print("---[MEMORY INFO]-----------------------------------------")
@@ -16,5 +17,5 @@ print("---[REGISTER INFO]---------------------------------------")
 print_register(register)
 print("---------------------------------------------------------")
 
-if dmp:
+if dmp or flag:
     open("dump", "bw").write(memory)

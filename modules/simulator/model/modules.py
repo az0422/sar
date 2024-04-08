@@ -51,19 +51,28 @@ def decoder(in_dict, register):
             destE = 0xFE
             alu = 1
     
-    elif op >> 4 == 0x4: # iread
-        data_a = data_c
+    elif op >> 4 == 0x4: # iread, rcopy
+        data_a = data_c if op & 0xF == 0 else data_a
         data_b = 0
         destE = in_dict["rB"]
     
-    elif op >> 4 == 0x5: # add, sub, shr, shl, and, or, not, xor
-        alu = op & 0x0F
+    elif op >> 4 == 0x5: # add, sub, shr, shl, and, or, not, xor, cmp
+        if op & 0xF <= 7:
+            alu = op & 0x0F
+            
+            destE = in_dict["rB"]
+        else:
+            alu = 1
+            destE = 0xFF
+        
         cc_u = 1
-        destE = in_dict["rB"]
+            
     
     elif op >> 4 == 0x6: # jump, jl, jle, je, jge, jg, jne
         cc = [7, 1, 5, 4, 6, 2, 3][op & 0x0F]
         destE = 0x100
+        data_a = data_c
+        data_b = 0
     
     elif op >> 4 == 0x7: # call, ret
         call_position = data_c
@@ -140,7 +149,7 @@ def alu(in_dict):
     les = SF ^ OF
     grt = ~ZF & ~(SF ^ OF) & 0x1 
 
-    return {"cc": eql << 3 | grt << 2 | les, "e": e}
+    return {"cc": eql << 2 | grt << 1 | les, "e": e}
 
 def memory(in_dict, memory):
     mem = in_dict["mem"]
