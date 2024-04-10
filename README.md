@@ -33,7 +33,7 @@ example: `python3 simulator.py examples/add.bin`
 |------------------|------------------------------|--------------------------|------------------------------------------------------|
 | 00               | halt                         | 00 FF FF 00000000 FF     | halt                                                 |
 | 10               | nop                          | 10 FF FF 00000000 FF     | nop                                                  |
-| 20               | mread %rA,%rB,$constant      | 20 rA rB 00000000 FF     | read from memory (addr: rA, dest: rB + constant)     |
+| 20               | mread %rA,%rB,$constant      | 20 rA rB 00000000 FF     | read from memory (addr: rA + constant, dest: rB)     |
 | 21               | pop %rB                      | 21 FF rB 00000000 FF     | pop (dest: rB)                                       |
 | 30               | mwrite %rA,%rB,$constant     | 30 rA rB 00000000 FF     | write to memory (data: rA, dest: rB + constant)      |
 | 31               | push %rA                     | 31 rA FF 00000000 FF     | push (data: rA)                                      |
