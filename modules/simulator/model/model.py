@@ -9,29 +9,34 @@ class Model:
         self.status = 0
     
     def run(self):
-        if self.status:
+        if self.status == 1:
             return
 
-        f = fetch(self.memory, self.register[0x100])
+        fetch_dict = fetch(self.memory, self.register[0x100])
         self.register[0x100] += 8
 
-        d = decoder(f, self.register)
+        decoder_a_dict = decoder_a(fetch_dict, self.register)
 
-        self.status |= d["status"]
+        self.status |= decoder_a_dict["status"]
 
-        a = alu(d)
+        decoder_b_dict = decoder_b(decoder_a_dict)
 
-        cc_u = d["cc_u"]
+        alu_dict = alu(decoder_b_dict)
+
+        cc_u = decoder_b_dict["cc_u"]
 
         if cc_u:
-            self.cc = a["cc"]
+            self.cc = alu_dict["cc"]
         
-        m_in = {"mem": d["mem"], "e": a["e"], "data_c": d["data_c"]}
-        m = memory(m_in, self.memory)
+        memory_dict = memory(alu_dict, self.memory)
 
-        wb_in = {"e": a["e"], "m": m["m"], "destE": d["destE"], "destM": d["destM"], "flag": self.cc & d["cc"]}
+        wb_in = {"data_e": memory_dict["data_e"], "data_m": memory_dict["data_m"], "destE": decoder_b_dict["destE"],
+                 "destM": decoder_b_dict["destM"], "flag": self.cc & decoder_b_dict["cc"]}
 
         writeback(wb_in, self.register)
 
         self.register[0xFF] = 0
+
+        #return fetch_dict, decoder_a_dict, decoder_b_dict, alu_dict, memory_dict
+        return None
 

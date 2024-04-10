@@ -5,7 +5,8 @@ def run(program):
     
     try:
         while not machine.status:
-            machine.run()
+            t = machine.run()
+            if t: print(t)
     except KeyboardInterrupt:
         return machine.memory, machine.register, True
     
