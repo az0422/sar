@@ -37,6 +37,6 @@ class Model:
 
         self.register[0xFF] = 0
 
-        #return fetch_dict, decoder_a_dict, decoder_b_dict, alu_dict, memory_dict
+        #return fetch_dict, decoder_a_dict, decoder_b_dict, alu_dict, memory_dict, self.cc
         return None
 

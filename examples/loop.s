@@ -1,27 +1,42 @@
-    iread %stck,$stack
+    iread %stck,$.stack
     call $main
     halt
 
 main:
-    iread %main0,$0
-    iread %cycl0,$1
-    iread %cycl1,$0x10
-    iread %addr0,$.result
+    iread %main0,$0x11111111
+    iread %main1,$0x20
+    shl %main0,%main1
+    rcopy %main1,%main0
+    iread %main1,$0x11111111
+    or %main1,%main0 # set 0x1111111111111111
+    rcopy %main0,%main1
+
+    iread %cycl0,$0xF
+    iread %cycl1,$1
+
+    iread %addr0,$0
     iread %addr1,$8
 
+    and %cycl0,%cycl0
+
     jump $.cond
+
 .loop:
-    add %cycl0,%main0
-    mwrite %main0,%addr0
+    mwrite %main0,%addr0,$.result
+    add %main1,%main0
     add %addr1,%addr0
 
-    cmp %cycl1,%main0
+    rcopy %cycl1,%cycl3
+    sub %cycl0,%cycl1
+    rcopy %cycl1,%cycl0
+    rcopy %cycl3,%cycl1
 
 .cond:
-    jg $.loop
+    jne $.loop
     ret
 
-.result:
+    .space $0x40
+.stack:
 
-    .space $0x200
-stack:
+.result:
+    .space $0x100
