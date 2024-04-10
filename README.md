@@ -75,6 +75,5 @@ example: `python3 simulator.py examples/add.bin`
 | PC            | -       | Program Counter                           |
 
 ## TODO
-* Find the bugs and fix
-* Add some features for architecture
 * Add more examples
+* Implement SIMD functions
