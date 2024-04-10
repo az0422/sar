@@ -29,33 +29,33 @@ example: `python3 simulator.py examples/add.bin`
 
 ### Instruction set
 
-| opcode (hex)  | format (assembly)         | format (bytecode)     | Explain                                              |
-|---------------|---------------------------|-----------------------|------------------------------------------------------|
-| 00            | halt                      | 00 FF FF 00000000 FF  | halt                                                 |
-| 10            | nop                       | 10 FF FF 00000000 FF  | nop                                                  |
-| 20            | mread %rA,%rB,$constant   | 20 rA rB 00000000 FF  | read from memory (addr: rA, dest: rB + constant)     |
-| 21            | pop %rB                   | 21 FF rB 00000000 FF  | pop (dest: rB)                                       |
-| 30            | mwrite %rA,%rB,$constant  | 30 rA rB 00000000 FF  | write to memory (data: rA, dest: rB + constant)      |
-| 31            | push %rA                  | 31 rA FF 00000000 FF  | push (data: rA)                                      |
-| 40            | iread %rA,$constant       | 40 FF rA constant FF  | constant to rB                                       |
-| 50            | add %rA,%rB               | 50 rA rB 00000000 FF  | rB = rA + rB                                         |
-| 51            | sub %rA,%rB               | 51 rA rB 00000000 FF  | rB = rA - rB                                         |
-| 52            | shr %rA,%rB               | 52 rA rB 00000000 FF  | rB = rA >> rB                                        |
-| 53            | shl %rA,%rB               | 53 rA rB 00000000 FF  | rB = rA << rB                                        |
-| 54            | and %rA,%rB               | 54 rA rB 00000000 FF  | rB = rA & rB                                         |
-| 55            | or %rA,%rB                | 55 rA rB 00000000 FF  | rB = rA | rB                                         |
-| 56            | not %rA,%rB               | 56 rA rB 00000000 FF  | rB = ~rA                                             |
-| 57            | xor %rA,%rB               | 57 rA rB 00000000 FF  | rB = rA ^ rB                                         |
-| 58            | cmp %rA,%rB               | 58 rA rB 00000000 FF  | null = rA - rB                                       |
-| 60            | jump %rB,$constant        | 60 FF rB constant FF  | jump (dest: rB + constant)                           |
-| 61            | jl %rB,$constant          | 61 FF rB constant FF  | jl (dest: rB + constant)                             |
-| 62            | jle %rB,$constant         | 62 FF rB constant FF  | jle (dest: rB + constant)                            |
-| 63            | je %rB,$constant          | 63 FF rB constant FF  | je (dest: rB + constant)                             |
-| 64            | jge %rB,$constant         | 64 FF rB constant FF  | jge (dest: rB + constant)                            |
-| 65            | jg %rB,$constant          | 65 FF rB constant FF  | jg (dest: rB + constant)                             |
-| 66            | jne %rB,$constant         | 66 FF rB constant FF  | jne (dest: rB + constant)                            |
-| 70            | call %rB,$constant        | 70 FF rB constant FF  | call (dest: rB + constant)                           |
-| 71            | ret                       | 71 FF FF 00000000 FF  | ret                                                  |
+| opcode<br>(hex)  | format<br>(assembly)         | format<br>(bytecode)     | Explain                                              |
+|------------------|------------------------------|--------------------------|------------------------------------------------------|
+| 00               | halt                         | 00 FF FF 00000000 FF     | halt                                                 |
+| 10               | nop                          | 10 FF FF 00000000 FF     | nop                                                  |
+| 20               | mread %rA,%rB,$constant      | 20 rA rB 00000000 FF     | read from memory (addr: rA, dest: rB + constant)     |
+| 21               | pop %rB                      | 21 FF rB 00000000 FF     | pop (dest: rB)                                       |
+| 30               | mwrite %rA,%rB,$constant     | 30 rA rB 00000000 FF     | write to memory (data: rA, dest: rB + constant)      |
+| 31               | push %rA                     | 31 rA FF 00000000 FF     | push (data: rA)                                      |
+| 40               | iread %rB,$constant          | 40 FF rB constant FF     | constant to rB                                       |
+| 50               | add %rA,%rB                  | 50 rA rB 00000000 FF     | rB = rA + rB                                         |
+| 51               | sub %rA,%rB                  | 51 rA rB 00000000 FF     | rB = rA - rB                                         |
+| 52               | shr %rA,%rB                  | 52 rA rB 00000000 FF     | rB = rA >> rB                                        |
+| 53               | shl %rA,%rB                  | 53 rA rB 00000000 FF     | rB = rA << rB                                        |
+| 54               | and %rA,%rB                  | 54 rA rB 00000000 FF     | rB = rA & rB                                         |
+| 55               | or %rA,%rB                   | 55 rA rB 00000000 FF     | rB = rA | rB                                         |
+| 56               | not %rA,%rB                  | 56 rA rB 00000000 FF     | rB = ~rA                                             |
+| 57               | xor %rA,%rB                  | 57 rA rB 00000000 FF     | rB = rA ^ rB                                         |
+| 58               | cmp %rA,%rB                  | 58 rA rB 00000000 FF     | null = rA - rB                                       |
+| 60               | jump %rB,$constant           | 60 FF rB constant FF     | jump (dest: rB + constant)                           |
+| 61               | jl %rB,$constant             | 61 FF rB constant FF     | jl (dest: rB + constant)                             |
+| 62               | jle %rB,$constant            | 62 FF rB constant FF     | jle (dest: rB + constant)                            |
+| 63               | je %rB,$constant             | 63 FF rB constant FF     | je (dest: rB + constant)                             |
+| 64               | jge %rB,$constant            | 64 FF rB constant FF     | jge (dest: rB + constant)                            |
+| 65               | jg %rB,$constant             | 65 FF rB constant FF     | jg (dest: rB + constant)                             |
+| 66               | jne %rB,$constant            | 66 FF rB constant FF     | jne (dest: rB + constant)                            |
+| 70               | call %rB,$constant           | 70 FF rB constant FF     | call (dest: rB + constant)                           |
+| 71               | ret                          | 71 FF FF 00000000 FF     | ret                                                  |
 
 ### Registers
 * Generic Registers: 00-FD
