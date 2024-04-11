@@ -64,6 +64,16 @@ def decoder_a(in_dict, register):
             pass
         else: status = 1
     
+    elif tail == 0x02:
+        if op == 0x58:
+            t = data_a
+            data_a = data_c
+            data_b = t
+        else:
+            status = 1
+    else:
+        status = 1
+    
     return {"data_a": data_a, "data_b": data_b, "data_c": data_c, "data_s": data_s, "status": status,
             "rA": in_dict["rA"], "rB": in_dict["rB"], "rC": in_dict["rC"], "op": op, "tail": tail}
 
@@ -129,6 +139,12 @@ def decoder_b(in_dict):
         if op >> 4 == 0x5:
             destE = rC
             alu = op & 0x7
+            cc_u = 1
+    
+    elif tail == 0x02:
+        if op == 0x58:
+            destE = 0xFF
+            alu = 1
             cc_u = 1
     
     return {"data_a": in_dict["data_a"], "data_b": in_dict["data_b"], "data_c": in_dict["data_c"], "data_s": in_dict["data_s"],

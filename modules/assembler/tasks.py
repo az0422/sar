@@ -22,21 +22,21 @@ def run(asm):
             n = const2arr(labels[p["const"]] if p["const"] in labels.keys() else eval(p["const"][1:]))
         else:
             try:
-                op, tail = opcodes[p["opcode"]][0]
+                (op, tail), (ra, rb, rc, const) = opcodes[p["opcode"]]
+                rA, rB, rC = p["ra"], p["rb"], p["rc"]
 
                 n[0] = op
-                n[1] = registers[p["ra"][1:]] if p["ra"] is not None else 0xFF
-                n[2] = registers[p["rb"][1:]] if p["rb"] is not None else 0xFF
+                n[1] = registers[p["ra"][1:]] if ra and rA is not None else 0xFF
+                n[2] = registers[p["rb"][1:]] if rb and rB is not None else 0xFF
+                n[3] = registers[p["rc"][1:]] if rc and rC is not None else 0xFF
 
-                if tail in (0x00, 0xFF):
+                if const:
                     if p["const"] in labels.keys():
                         n[3:7] = const2arr(labels[p["const"]], 4)
                     elif p["const"] is not None:
                         n[3:7] = const2arr(eval(p["const"][1:]), 4)
                     else:
                         n[3:7] = const2arr(0, 4)
-                elif tail == 0x01:
-                    n[3] = registers[p["rc"][1:]] if p["rc"] is not None else 0xFF
                 
                 n[7] = tail
             except:

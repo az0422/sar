@@ -36,7 +36,8 @@ opcodes = {
     "andt": [[0x54, 0x01], [True, True, True, False]],
     "ort": [[0x55, 0x01], [True, True, True, False]],
     "nott": [[0x56, 0x01], [True, True, True, False]],
-    "xort": [[0x57, 0x01], [True, True, True, False]]
+    "xort": [[0x57, 0x01], [True, True, True, False]],
+    "cmpi": [[0x58, 0x02], [True, False, False, True]],
 }
 
 registers = {'main0': 0,'main1': 1, 'main2': 2, 'main3': 3, 'main4': 4, 'main5': 5, 'main6': 6, 'main7': 7,

@@ -53,7 +53,7 @@ Format: `00 00 00 00 000000 00`
 | 52, FF                    | shr %rA,%rB                  | 52 rA rB 00000000 FF     | rB = rA >> rB                                        |
 | 53, FF                    | shl %rA,%rB                  | 53 rA rB 00000000 FF     | rB = rA << rB                                        |
 | 54, FF                    | and %rA,%rB                  | 54 rA rB 00000000 FF     | rB = rA & rB                                         |
-| 55, FF                    | or %rA,%rB                   | 55 rA rB 00000000 FF     | rB = rA \| rB                                         |
+| 55, FF                    | or %rA,%rB                   | 55 rA rB 00000000 FF     | rB = rA \| rB                                        |
 | 56, FF                    | not %rA,%rB                  | 56 rA rB 00000000 FF     | rB = ~rA                                             |
 | 57, FF                    | xor %rA,%rB                  | 57 rA rB 00000000 FF     | rB = rA ^ rB                                         |
 | 58, FF                    | cmp %rA,%rB                  | 58 rA rB 00000000 FF     | null = rA - rB                                       |
@@ -71,9 +71,10 @@ Format: `00 00 00 00 000000 00`
 | 52, 01                    | shrt %rA,%rB,%rC             | 52 rA rB rC 000000 01    | rC = rA >> rB                                        |
 | 53, 01                    | shlt %rA,%rB,%rC             | 53 rA rB rC 000000 01    | rC = rA << rB                                        |
 | 54, 01                    | andt %rA,%rB,%rC             | 54 rA rB rC 000000 01    | rC = rA & rB                                         |
-| 55, 01                    | ort %rA,%rB,%rC              | 55 rA rB rC 000000 01    | rC = rA \| rB                                         |
+| 55, 01                    | ort %rA,%rB,%rC              | 55 rA rB rC 000000 01    | rC = rA \| rB                                        |
 | 56, 01                    | nott %rA,%rB,%rC             | 56 rA rB rC 000000 01    | rC = ~rA                                             |
 | 57, 01                    | xort %rA,%rB,%rC             | 57 rA rB rC 000000 01    | rC = rA ^ rB                                         |
+| 58, 02                    | cmpi %rA,$constant           | 58 rA FF 00000000 02     | null = constant - rA                                 |
 
 
 ### Registers
