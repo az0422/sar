@@ -25,7 +25,7 @@ example: `python3 simulator.py examples/add.bin`
 * 3rd byte: rB
 * 4th byte: rC (only some opcodes)
 * 4-7th byte: constant
-* 8th byte: reserved
+* 8th byte: tail
 
 ### Instruction set
 
