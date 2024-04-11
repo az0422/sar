@@ -22,18 +22,23 @@ def run(asm):
             n = const2arr(labels[p["const"]] if p["const"] in labels.keys() else eval(p["const"][1:]))
         else:
             try:
-                n[0] = opcodes[p["opcode"]][0][0]
+                op, tail = opcodes[p["opcode"]][0]
+
+                n[0] = op
                 n[1] = registers[p["ra"][1:]] if p["ra"] is not None else 0xFF
                 n[2] = registers[p["rb"][1:]] if p["rb"] is not None else 0xFF
 
-                if p["const"] in labels.keys():
-                    n[3:7] = const2arr(labels[p["const"]], 4)
-                elif p["const"] is not None:
-                    n[3:7] = const2arr(eval(p["const"][1:]), 4)
-                else:
-                    n[3:7] = const2arr(0, 4)
+                if tail in (0x00, 0xFF):
+                    if p["const"] in labels.keys():
+                        n[3:7] = const2arr(labels[p["const"]], 4)
+                    elif p["const"] is not None:
+                        n[3:7] = const2arr(eval(p["const"][1:]), 4)
+                    else:
+                        n[3:7] = const2arr(0, 4)
+                elif tail == 0x01:
+                    n[3] = registers[p["rc"][1:]] if p["rc"] is not None else 0xFF
                 
-                n[7] = opcodes[p["opcode"]][0][1]
+                n[7] = tail
             except:
                 print("line %d\n%s\nSyntaxError: invalid syntax" % (p["index"], p["original"]))
                 sys.exit()

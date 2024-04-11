@@ -5,8 +5,7 @@
 main:
     iread %main0,$0x11111111
     iread %main1,$0x20
-    shl %main0,%main1
-    rcopy %main1,%main0
+    shlt %main0,%main1,%main0
     iread %main1,$0x11111111
     or %main1,%main0 # set 0x1111111111111111
     rcopy %main0,%main1
@@ -26,10 +25,7 @@ main:
     add %main1,%main0
     add %addr1,%addr0
 
-    rcopy %cycl1,%cycl3
-    sub %cycl0,%cycl1
-    rcopy %cycl1,%cycl0
-    rcopy %cycl3,%cycl1
+    subt %cycl0,%cycl1,%cycl0
 
 .cond:
     jne $.loop
