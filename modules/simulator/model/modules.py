@@ -52,7 +52,7 @@ def decoder_a(in_dict, register):
             data_b = data_c
         elif op == 0x70: # call
             t = register[0x100]
-            register[0x100] = data_c
+            register[0x100] = data_c + data_b
             data_c = t
         elif op == 0x71: # ret
             pass

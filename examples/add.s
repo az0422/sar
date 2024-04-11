@@ -1,5 +1,6 @@
     iread %stck,$.stack
-    call $main
+    iread %addr0,$main
+    call %addr0
     halt
 
 main:
