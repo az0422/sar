@@ -18,7 +18,7 @@ example: `python3 simulator.py examples/add.bin`
 
 ## Instruction
 ### Format
-All instruction has 8 bytes length.
+All instructions have 8 bytes length.
 
 #### Type A
 Format: `00 00 00 00000000 00`
