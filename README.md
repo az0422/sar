@@ -1,7 +1,7 @@
 # Simple Architecture RISC Simulator
 
 ## Outline
-* Instruction length is only 8 bytes (7+1 bytes.)
+* Instruction length is only 8 bytes.
 * Structure of this architecture is very simple.
 * I drunk highball, that was delicious and made my brain smart (just for a moment.)
 
@@ -18,13 +18,23 @@ example: `python3 simulator.py examples/add.bin`
 
 ## Instruction
 ### Format
+All instructions have 8 bytes length.
 
-* length: 7+1 bytes
+#### Type A
+Format: `00 00 00 00000000 00`
 * 1st byte: opcode
 * 2nd byte: rA
 * 3rd byte: rB
-* 4th byte: rC (only some opcodes)
-* 4-7th byte: constant
+* 4-7th bytes: constant
+* 8th byte: tail
+
+#### Type B
+Format: `00 00 00 00 000000 00`
+* 1st byte: opcode
+* 2nd byte: rA
+* 3rd byte: rB
+* 4th byte: rC
+* 5-7th bytes: reserved
 * 8th byte: tail
 
 ### Instruction set
