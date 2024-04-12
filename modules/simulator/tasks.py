@@ -1,16 +1,24 @@
 from .model.model import Model
+from time import time
 
 def run(program):
     machine = Model(program)
     
+    clocks = 1
+    end_t = 0
     try:
+        start_t = time()
         while not machine.status:
             t = machine.run()
             if t: print(t)
+
+            clocks += 1
+
+        end_t = time() - start_t
     except KeyboardInterrupt:
-        return machine.memory, machine.register, True
+        return machine.memory, machine.register, True, 0, clocks
     
-    return machine.memory, machine.register, False
+    return machine.memory, machine.register, False, end_t, clocks
 
 def print_memory(memory):
     for i, b in enumerate(memory):
@@ -28,3 +36,7 @@ def print_register(register):
     print("stck FE %016X" % register[-3])
     print("null FF %016X" % 0)
     print("PC      %016X" % register[-1])
+
+def print_runinfo(info):
+    print("Run time:", info[0], "s")
+    print("Clocks:", info[1], "cycle" + ("s" if info[1] > 1 else ""))

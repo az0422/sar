@@ -9,12 +9,13 @@ dmp = False
 if len(sys.argv) == 3 and sys.argv[2] == "dump":
     dmp = True
 
-memory, register, flag = run(program)
+memory, register, flag, time_t, clocks = run(program)
 
 print("=========================================================")
 print("SAR: Simple Architecture RICS Machine Simulator")
 print("version: " + version)
 print("===[RUN RESULT]==========================================")
+print_runinfo([time_t, clocks])
 print("---[MEMORY INFO]-----------------------------------------")
 print_memory(memory)
 print("---[REGISTER INFO]---------------------------------------")

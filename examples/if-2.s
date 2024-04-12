@@ -12,51 +12,152 @@ main:
     and %cycl0,%cycl0
 
     jump $.cond
+
 .loop:
-    cmpi %cycl0,$0xF # if
-    je $.L0
+    cmpi %cycl0,$0xF
+    jne $.L0
 
-    cmpi %cycl0,$0xE # else if
-    je $.L1
+    iread %main0,$0x11111111
+    iread %main1,$0x11111111
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
 
+.L0:
+    cmpi %cycl0,$0xE # if
+    jne $.L1
+
+    iread %main0,$0x22222222
+    iread %main1,$0x22222222
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L1:
     cmpi %cycl0,$0xD # else if
-    je $.L2
+    jne $.L2
 
+    iread %main0,$0x33333333
+    iread %main1,$0x33333333
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L2:
     cmpi %cycl0,$0xC # else if
-    je $.L3
+    jne $.L3
 
+    iread %main0,$0x44444444
+    iread %main1,$0x44444444
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L3:
     cmpi %cycl0,$0xB # else if
-    je $.L4
+    jne $.L4
 
+    iread %main0,$0x55555555
+    iread %main1,$0x55555555
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L4:
     cmpi %cycl0,$0xA # else if
-    je $.L5
+    jne $.L5
 
+    iread %main0,$0x66666666
+    iread %main1,$0x66666666
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L5:
     cmpi %cycl0,$0x9 # else if
-    je $.L6
+    jne $.L6
 
+    iread %main0,$0x77777777
+    iread %main1,$0x77777777
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L6:
     cmpi %cycl0,$0x8 # else if
-    je $.L7
+    jne $.L7
 
+    iread %main0,$0x88888888
+    iread %main1,$0x88888888
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L7:
     cmpi %cycl0,$0x7 # else if
-    je $.L8
+    jne $.L8
 
+    iread %main0,$0x99999999
+    iread %main1,$0x99999999
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L8:
     cmpi %cycl0,$0x6 # else if
-    je $.L9
+    jne $.L9
 
+    iread %main0,$0xAAAAAAAA
+    iread %main1,$0xAAAAAAAA
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L9:
     cmpi %cycl0,$0x5 # else if
-    je $.L10
+    jne $.L10
 
+    iread %main0,$0xBBBBBBBB
+    iread %main1,$0xBBBBBBBB
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L10:
     cmpi %cycl0,$0x4 # else if
-    je $.L11
+    jne $.L11
 
+    iread %main0,$0xCCCCCCCC
+    iread %main1,$0xCCCCCCCC
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L11:
     cmpi %cycl0,$0x3 # else if
-    je $.L12
+    jne $.L12
 
+    iread %main0,$0xDDDDDDDD
+    iread %main1,$0xDDDDDDDD
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L12:
     cmpi %cycl0,$0x2 # else if
-    je $.L13
+    jne $.L13
 
-    cmpi %cycl0,$0x1 # else if
-    je $.L14
+    iread %main0,$0xEEEEEEEE
+    iread %main1,$0xEEEEEEEE
+    shlt %main0,%main3,%main0
+    or %main1,%main0
+    jump $.retp
+
+.L13: # else
+    iread %main0,$0xFFFFFFFF
+    iread %main1,$0xFFFFFFFF
+    shlt %main0,%main3,%main0
+    or %main1,%main0
 
 .retp:
     mwrite %main0,%addr0,$.result
@@ -65,100 +166,8 @@ main:
     subt %cycl0,%cycl1,%cycl0
 
 .cond:
-    jne $.loop
+    jg $.loop
     ret
-
-.L0:
-    iread %main0,$0x11111111
-    iread %main1,$0x11111111
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L1:
-    iread %main0,$0x22222222
-    iread %main1,$0x22222222
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L2:
-    iread %main0,$0x33333333
-    iread %main1,$0x33333333
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L3:
-    iread %main0,$0x44444444
-    iread %main1,$0x44444444
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L4:
-    iread %main0,$0x55555555
-    iread %main1,$0x55555555
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L5:
-    iread %main0,$0x66666666
-    iread %main1,$0x66666666
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L6:
-    iread %main0,$0x77777777
-    iread %main1,$0x77777777
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L7:
-    iread %main0,$0x88888888
-    iread %main1,$0x88888888
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L8:
-    iread %main0,$0x99999999
-    iread %main1,$0x99999999
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L9:
-    iread %main0,$0xAAAAAAAA
-    iread %main1,$0xAAAAAAAA
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L10:
-    iread %main0,$0xBBBBBBBB
-    iread %main1,$0xBBBBBBBB
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L11:
-    iread %main0,$0xCCCCCCCC
-    iread %main1,$0xCCCCCCCC
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L12:
-    iread %main0,$0xDDDDDDDD
-    iread %main1,$0xDDDDDDDD
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L13:
-    iread %main0,$0xEEEEEEEE
-    iread %main1,$0xEEEEEEEE
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-.L14:
-    iread %main0,$0xFFFFFFFF
-    iread %main1,$0xFFFFFFFF
-    shlt %main0,%main3,%main0
-    or %main1,%main0
-    jump $.retp
-
 
     .space $0x40
 .stack:
