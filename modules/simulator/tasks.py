@@ -28,14 +28,20 @@ def print_memory(memory):
             print()
     print()
 
-def print_register(register):
+def print_register_cisd(register):
     register_name = ["main", "cycl", "data", "addr", "args", "func", "iovr", "sysm"]
 
-    for i, b in enumerate(register[:-3]):
+    for i, b in enumerate(register[0][:-3]):
         print("%s%x %02X %016X" % (register_name[i // 32], i % 32, i, b))
-    print("stck FE %016X" % register[-3])
+    print("stck FE %016X" % register[0][-3])
     print("null FF %016X" % 0)
-    print("PC      %016X" % register[-1])
+    print("PC      %016X" % register[0][-1])
+
+def print_register_simd_64b(register):
+    register_name = "s128b"
+    
+    for i, b in enumerate(register[1]):
+        print("%s%x %02X h(%02X):%016X l(%02X):%016X" % (register_name, i, i, i, b[0], i | 0x80, b[1]))
 
 def print_runinfo(info):
     print("Run time:", info[0], "s")

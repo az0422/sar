@@ -39,6 +39,10 @@ Format: `00 00 00 00 000000 00`
 
 ### Instruction set
 
+#### SISD
+
+Basic intruction-set.
+
 | opcode and tail<br>(hex)  | format<br>(assembly)         | format<br>(bytecode)     | Explain                                              |
 |---------------------------|------------------------------|--------------------------|------------------------------------------------------|
 | 00, FF                    | halt                         | 00 FF FF 00000000 FF     | halt                                                 |
@@ -48,6 +52,7 @@ Format: `00 00 00 00 000000 00`
 | 30, FF                    | mwrite %rA,%rB,$constant     | 30 rA rB 00000000 FF     | write to memory (data: rA, dest: rB + constant)      |
 | 31, FF                    | push %rA                     | 31 rA FF 00000000 FF     | push (data: rA)                                      |
 | 40, FF                    | iread %rB,$constant          | 40 FF rB constant FF     | constant to rB                                       |
+| 41, FF                    | rcopy %rA,%rB                | 41 rA rB 00000000 FF     | copy rA to rB
 | 50, FF                    | add %rA,%rB                  | 50 rA rB 00000000 FF     | rB = rA + rB                                         |
 | 51, FF                    | sub %rA,%rB                  | 51 rA rB 00000000 FF     | rB = rA - rB                                         |
 | 52, FF                    | shr %rA,%rB                  | 52 rA rB 00000000 FF     | rB = rA >> rB                                        |
@@ -76,6 +81,24 @@ Format: `00 00 00 00 000000 00`
 | 57, 01                    | xort %rA,%rB,%rC             | 57 rA rB rC 000000 01    | rC = rA ^ rB                                         |
 | 58, 02                    | cmpi %rA,$constant           | 58 rA FF 00000000 02     | null = constant - rA                                 |
 
+#### SIMD128
+128bit(64x2) SIMD instruction-set
+
+| opcode and tail<br>(hex)  | format<br>(assembly)         | format<br>(bytecode)     | Explain                                              |
+|---------------------------|------------------------------|--------------------------|------------------------------------------------------|
+| 41, 10                    | rcopyss128 %rA,%rB           | 41 rA rB 00000000 10     | copy rA to rB (both are SIM128 registers)            |
+| 42, 10                    | rcopysn128 %rA,%rB           | 42 rA rB 00000000 10     | copy rA(SIM128 segment) to rB(basic)                 |
+| 43, 10                    | rcopyns128 %rA,%rB           | 43 rA rB 00000000 10     | copy rA(basic) to rB(SIMD128 segment)                |
+| 44, 10                    | rcopyns128all %rA,%rB        | 44 rA rB 00000000 10     | copy and fill rA(basic) to rB(SIMD128)               |
+| 50, 10                    | addts128 %rA,%rB,%rC         | 50 rA rB rC 000000 10    | rC = rA + rB                                         |
+| 51, 10                    | subts128 %rA,%rB,%rC         | 51 rA rB rC 000000 10    | rC = rA - rB                                         |
+| 52, 10                    | shrts128 %rA,%rB,%rC         | 52 rA rB rC 000000 10    | rC = rA >> rB                                        |
+| 53, 10                    | shlts128 %rA,%rB,%rC         | 53 rA rB rC 000000 10    | rC = rA << rB                                        |
+| 54, 10                    | andts128 %rA,%rB,%rC         | 54 rA rB rC 000000 10    | rC = rA & rB                                         |
+| 55, 10                    | orts128 %rA,%rB,%rC          | 55 rA rB rC 000000 10    | rC = rA \| rB                                        |
+| 56, 10                    | notts128 %rA,%rB,%rC         | 56 rA rB rC 000000 10    | rC = ~rA                                             |
+| 57, 10                    | xorts128 %rA,%rB,%rC         | 57 rA rB rC 000000 10    | rC = rA ^ rB                                         |
+
 
 ### Registers
 * Generic Registers: 00-FD
@@ -93,6 +116,16 @@ Format: `00 00 00 00 000000 00`
 | FE            | stck    | stack point                               |
 | FF            | null    | null (constant of 0)                      |
 | PC            | -       | Program Counter                           |
+
+* SIMD128 Registers: 00-7F
+* The high or low segment flag: 0x80
+* The segment of registers are used only rcopyns128 and rcopysn128 instructions.
+
+| Index (hex)   | Name      | Explain                               |
+|---------------|-----------|---------------------------------------|
+| 0 - 7F        | s128b0-7f | SIMD128 registers                     |
+| 0 - 7F        | s128b0-7fh| high segments of SIM128 registers     |
+| 80 - FF       | s128b0-7fl| low segments of SIM128 registers      |
 
 ## TODO
 * Add more examples

@@ -1,7 +1,7 @@
 import sys
 from modules.simulator.tasks import *
 
-version = "v1.2"
+version = "v2.0"
 
 program = open(sys.argv[1], "br").read()
 dmp = False
@@ -18,8 +18,10 @@ print("===[RUN RESULT]==========================================")
 print_runinfo([time_t, clocks])
 print("---[MEMORY INFO]-----------------------------------------")
 print_memory(memory)
-print("---[REGISTER INFO]---------------------------------------")
-print_register(register)
+print("---[REGISTER INFO - SISD]--------------------------------")
+print_register_cisd(register)
+print("---[REGISTER INFO - SIMD128]-----------------------------")
+print_register_simd_64b(register)
 print("---------------------------------------------------------")
 
 if dmp or flag:
