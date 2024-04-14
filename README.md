@@ -124,8 +124,8 @@ Basic intruction-set.
 | Index (hex)   | Name      | Explain                               |
 |---------------|-----------|---------------------------------------|
 | 0 - 7F        | s128b0-7f | SIMD128 registers                     |
-| 0 - 7F        | s128b0-7fh| high segments of SIM128 registers     |
-| 80 - FF       | s128b0-7fl| low segments of SIM128 registers      |
+| 0 - 7F        | s128b0-7fh| high segments of SIMD128 registers     |
+| 80 - FF       | s128b0-7fl| low segments of SIMD128 registers      |
 
 ## TODO
 * Add more examples
