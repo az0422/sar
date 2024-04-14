@@ -86,8 +86,8 @@ Basic intruction-set.
 
 | opcode and tail<br>(hex)  | format<br>(assembly)         | format<br>(bytecode)     | Explain                                              |
 |---------------------------|------------------------------|--------------------------|------------------------------------------------------|
-| 41, 10                    | rcopyss128 %rA,%rB           | 41 rA rB 00000000 10     | copy rA to rB (both are SIM128 registers)            |
-| 42, 10                    | rcopysn128 %rA,%rB           | 42 rA rB 00000000 10     | copy rA(SIM128 segment) to rB(basic)                 |
+| 41, 10                    | rcopyss128 %rA,%rB           | 41 rA rB 00000000 10     | copy rA to rB (both are SIMD128 registers)           |
+| 42, 10                    | rcopysn128 %rA,%rB           | 42 rA rB 00000000 10     | copy rA(SIMD128 segment) to rB(basic)                |
 | 43, 10                    | rcopyns128 %rA,%rB           | 43 rA rB 00000000 10     | copy rA(basic) to rB(SIMD128 segment)                |
 | 44, 10                    | rcopyns128all %rA,%rB        | 44 rA rB 00000000 10     | copy and fill rA(basic) to rB(SIMD128)               |
 | 50, 10                    | addts128 %rA,%rB,%rC         | 50 rA rB rC 000000 10    | rC = rA + rB                                         |
@@ -124,8 +124,8 @@ Basic intruction-set.
 | Index (hex)   | Name      | Explain                               |
 |---------------|-----------|---------------------------------------|
 | 0 - 7F        | s128b0-7f | SIMD128 registers                     |
-| 0 - 7F        | s128b0-7fh| high segments of SIMD128 registers     |
-| 80 - FF       | s128b0-7fl| low segments of SIMD128 registers      |
+| 0 - 7F        | s128b0-7fh| high segments of SIMD128 registers    |
+| 80 - FF       | s128b0-7fl| low segments of SIMD128 registers     |
 
 ## TODO
 * Add more examples
