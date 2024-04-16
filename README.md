@@ -89,8 +89,8 @@ Basic intruction-set.
 | opcode and tail<br>(hex)  | format<br>(assembly)         | format<br>(bytecode)     | Explain                                              |
 |---------------------------|------------------------------|--------------------------|------------------------------------------------------|
 | 41, 10                    | rcopyss128 %rA,%rB           | 41 rA rB 00000000 10     | copy rA to rB (both are SIMD128 registers)           |
-| 42, 10                    | rcopysn128 %rA,%rB           | 42 rA rB 00000000 10     | copy rA(SIMD128 segment) to rB(basic)                |
-| 43, 10                    | rcopyns128 %rA,%rB           | 43 rA rB 00000000 10     | copy rA(basic) to rB(SIMD128 segment)                |
+| 42, 10                    | rcopyns128 %rA,%rB           | 42 rA rB 00000000 10     | copy rA(basic) to rB(SIMD128 segment)                |
+| 43, 10                    | rcopysn128 %rA,%rB           | 43 rA rB 00000000 10     | copy rA(SIMD128 segment) to rB(basic)                |
 | 44, 10                    | rcopyns128all %rA,%rB        | 44 rA rB 00000000 10     | copy and fill rA(basic) to rB(SIMD128)               |
 | 50, 10                    | addts128 %rA,%rB,%rC         | 50 rA rB rC 000000 10    | rC = rA + rB                                         |
 | 51, 10                    | subts128 %rA,%rB,%rC         | 51 rA rB rC 000000 10    | rC = rA - rB                                         |
@@ -101,7 +101,7 @@ Basic intruction-set.
 | 56, 10                    | notts128 %rA,%rB,%rC         | 56 rA rB rC 000000 10    | rC = ~rA                                             |
 | 57, 10                    | xorts128 %rA,%rB,%rC         | 57 rA rB rC 000000 10    | rC = rA ^ rB                                         |
 | 42, 11                    | rcopysn128d %rA,%rB,%rC      | 42 rA rB rC 000000 11    | copy rA(SIMD128) to (rB, rC)(basic)                  |
-| 43, 11                    | rcopyns128d %rA,%rB,%rC      | 43 rA rB rC 000000 11    | copy (rA, rB)(basic) to rA(SIMD128)                  |
+| 43, 11                    | rcopyns128d %rA,%rB,%rC      | 43 rA rB rC 000000 11    | copy (rA, rB)(basic) to rC(SIMD128)                  |
 
 #### SIMD256
 256bit(64x4) SIMD instruction-set
@@ -109,8 +109,8 @@ Basic intruction-set.
 | opcode and tail<br>(hex)  | format<br>(assembly)              | format<br>(bytecode)     | Explain                                              |
 |---------------------------|-----------------------------------|--------------------------|------------------------------------------------------|
 | 41, 20                    | rcopyss256 %rA,%rB                | 41 rA rB 00000000 20     | copy rA to rB (both are SIMD256 registers)           |
-| 42, 20                    | rcopysn256 %rA,%rB                | 42 rA rB 00000000 20     | copy rA(SIMD256 segment) to rB(basic)                |
-| 43, 20                    | rcopyns256 %rA,%rB                | 43 rA rB 00000000 20     | copy rA(basic) to rB(SIMD256 segment)                |
+| 42, 20                    | rcopyns256 %rA,%rB                | 42 rA rB 00000000 20     | copy rA(basic) to rB(SIMD256 segment)                |
+| 43, 20                    | rcopysn256 %rA,%rB                | 43 rA rB 00000000 20     | copy rA(SIMD256 segment) to rB(basic)                |
 | 44, 20                    | rcopyns256all %rA,%rB             | 44 rA rB 00000000 20     | copy and fill rA(basic) to rB(SIMD256)               |
 | 50, 20                    | addts256 %rA,%rB,%rC              | 50 rA rB rC 000000 20    | rC = rA + rB                                         |
 | 51, 20                    | subts256 %rA,%rB,%rC              | 51 rA rB rC 000000 20    | rC = rA - rB                                         |
@@ -120,8 +120,8 @@ Basic intruction-set.
 | 55, 20                    | orts256 %rA,%rB,%rC               | 55 rA rB rC 000000 20    | rC = rA \| rB                                        |
 | 56, 20                    | notts256 %rA,%rB,%rC              | 56 rA rB rC 000000 20    | rC = ~rA                                             |
 | 57, 20                    | xorts256 %rA,%rB,%rC              | 57 rA rB rC 000000 20    | rC = rA ^ rB                                         |
-| 42, 21                    | rcopysn256q %rA,%rB,%rC,%rX,%rZ   | 42 rA rB rC rX rZ 00 21  | copy rA(SIMD256) to (rB, rC, rX, rZ)(basic)          |
-| 43, 21                    | rcopyns256q %rA,%rB,%rC,%rX,%rZ   | 43 rA rB rC rX rZ 00 21  | copy (rA, rB, rX, rZ)(basic) to rA(SIMD256)          |
+| 42, 21                    | rcopysn256q %rA,%rB,%rC,%rX,%rY   | 42 rA rB rC rX rZ 00 21  | copy rA(SIMD256) to (rB, rC, rX, rY)(basic)          |
+| 43, 21                    | rcopyns256q %rA,%rB,%rC,%rX,%rY   | 43 rA rB rC rX rZ 00 21  | copy (rA, rB, rC, rX)(basic) to rY(SIMD256)          |
 
 ### Registers
 * Generic Registers: 00-FD
