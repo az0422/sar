@@ -165,4 +165,4 @@ Basic intruction-set.
 
 ## TODO
 * Add more examples
-* Implement SIMD functions
+* Implement half width SIMD instructions.
