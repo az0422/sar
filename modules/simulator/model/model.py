@@ -1,11 +1,12 @@
 from .modules import *
-from . import modules_64 as s64, modules_s128 as s128
+from . import modules_64 as ss64, modules_s128 as sm128, modules_s256 as sm256
 
 class Model:
     def __init__(self, program):
         self.memory = bytearray(program)
         self.register = [[0 for _ in range(0x100 + 1)],
                          [[0, 0] for _ in range(0x80)],
+                         [[0, 0, 0, 0] for _ in range(0x40)],
                         ]
         self.register[0][0xFF] = 0
         self.cc = 7
@@ -22,10 +23,12 @@ class Model:
         self.status |= decoder_t_dict["status"]
 
         simd = decoder_t_dict["simd"]
-        if simd:
-            decoder_a = s128.decoder_a
+        if simd == 1:
+            decoder_a = sm128.decoder_a
+        elif simd == 2:
+            decoder_a = sm256.decoder_a
         else:
-            decoder_a = s64.decoder_a
+            decoder_a = ss64.decoder_a
 
         # pipe 2
         decoder_a_dict = decoder_a(fetch_dict, self.register)
@@ -33,12 +36,12 @@ class Model:
         self.status |= decoder_a_dict["status"]
 
         simd = decoder_a_dict["simd"]
-        if simd:
-            decoder_b = s128.decoder_b
-            alu = s128.alu
+        if simd in (1, 2):
+            decoder_b = [sm128.decoder_b, sm256.decoder_b][simd - 1]
+            alu = sm128.alu
         else:
-            decoder_b = s64.decoder_b
-            alu = s64.alu
+            decoder_b = ss64.decoder_b
+            alu = ss64.alu
 
         # pipe 3
         decoder_b_dict = decoder_b(decoder_a_dict)

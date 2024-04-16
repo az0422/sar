@@ -1,34 +1,42 @@
 def decoder_a(in_dict, register):
-    data_a = register[1][in_dict["rA"] & 0x7F]
-    data_b = register[1][in_dict["rB"] & 0x7F]
-    
     rA = in_dict["rA"]
     rB = in_dict["rB"]
     rC = in_dict["rC"]
-
     simd = in_dict["simd"]
+
+    data_a = register[1][rA & 0x7F]
+    data_b = register[1][rB & 0x7F]
+    data_c = register[1][rC & 0x7F]
 
     op = in_dict["op"]
     tail = in_dict["tail"]
     status = 0 # 0: AOK, 1: halt, 2: nop
 
     if tail == 0x10:
-        if op == 0x41: # rcopyss
+        if op == 0x41: # rcopyss128
             data_b = [0, 0]
-        elif op == 0x42: # rcopyns
+        elif op == 0x42: # rcopyns128
             t = register[0][rA]
             data_a = [t, 0]
             data_b = [0, 0]
-        elif op == 0x43: # rcopysn
+        elif op == 0x43: # rcopysn128
             data_a = data_a[rA >> 7]
             data_b = 0
             simd = 0
-        elif op == 0x44: # rcopynsall
+        elif op == 0x44: # rcopyns128all
             t = register[0][rA]
             data_a = [t, t]
             data_b = [0, 0]
         elif op in (0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57):
             pass
+        else:
+            status = 1
+    elif tail == 0x11:
+        if op == 0x42: # rcopyns128d
+            data_a = [register[0][rA], register[0][rB]]
+            data_b = [0, 0]
+        elif op == 0x43: # rcopysn128d
+            data_b = [0, 0]
         else:
             status = 1
     else:
@@ -56,12 +64,18 @@ def decoder_b(in_dict):
 
     if tail == 0x10:
         if op  >> 4 == 0x4:
-            destE = [0, rB & 0x3F]
+            destE = [0, rB & 0x7F]
             if op == 0x42:
                 destE = [1, rB]
         elif op >> 4 == 0x5:
             alu = op & 0xF
-            destE = [0, rC & 0x3F]
+            destE = [0, rC & 0x7F]
+    
+    elif tail == 0x11:
+        if op == 0x42:
+            destE = [0, rC & 0x7F]
+        elif op == 0x43:
+            destE = [2, rB, rC]
     
     return {"data_a": in_dict["data_a"], "data_b": in_dict["data_b"], "simd": in_dict["simd"], "data_c": 0, "data_s": 0,
             "destE": destE, "destM": destM, "alu": alu, "mem": mem, "cc": cc, "cc_u": cc_u}
@@ -98,6 +112,6 @@ def alu(in_dict):
     
     elif alu == 7:
         e = [(aa ^ bb) & lim for aa, bb in zip(a, b)]
-
+    
     return {"destE": in_dict["destE"], "destM": in_dict["destM"], "mem": in_dict["mem"], "data_s": 0, "data_c": 0,
         "cc": 7, "data_e": e}

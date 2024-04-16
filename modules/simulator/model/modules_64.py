@@ -142,6 +142,12 @@ def decoder_b(in_dict):
             alu = 0
             cc_u = 0
     
+    elif tail == 0x20:
+        if op == 0x43:
+            destE = rB
+            alu = 0
+            cc_u = 0
+    
     return {"data_a": in_dict["data_a"], "data_b": in_dict["data_b"], "data_c": in_dict["data_c"], "data_s": in_dict["data_s"],
             "destE": destE, "destM": destM, "alu": alu, "mem": mem, "cc": cc, "cc_u": cc_u}
 

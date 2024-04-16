@@ -30,11 +30,9 @@ main:
     rcopyns128all %main4,%s128b0
     rcopyns128all %main5,%s128b8
     # read address
-    rcopyns128 %addr0,%s128b1h
-    rcopyns128 %addr1,%s128b1l
+    rcopyns128d %addr0,%addr1,%s128b1
     # write address
-    rcopyns128 %addr2,%s128b2h
-    rcopyns128 %addr3,%s128b2l
+    rcopyns128d %addr2,%addr3,%s128b2
 
     call $func
     call $func
@@ -47,21 +45,17 @@ main:
     ret
 
 func:
-    rcopysn128 %s128b1h,%addr0
-    rcopysn128 %s128b1l,%addr1
-    rcopysn128 %s128b2h,%addr2
-    rcopysn128 %s128b2l,%addr3
+    rcopysn128d %s128b1,%addr0,%addr1
+    rcopysn128d %s128b2,%addr2,%addr3
 
     mread %addr0,%main0
     mread %addr1,%main1
 
-    rcopyns128 %main0,%s128b9h
-    rcopyns128 %main1,%s128b9l
+    rcopyns128d %main0,%main1,%s128b9
     shlts128 %s128b9,%s128b8,%s128ba
     orts128 %s128b9,%s128ba,%s128b9
 
-    rcopysn128 %s128b9h,%data0
-    rcopysn128 %s128b9l,%data1
+    rcopysn128d %s128b9,%data0,%data1
 
     mwrite %data0,%addr2
     mwrite %data1,%addr3

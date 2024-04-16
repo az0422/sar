@@ -8,7 +8,11 @@ def fetch(memory, pc):
     const = arr2const(memory[pc+3:pc+7])
     tail = memory[pc+7]
 
-    return {"op": op, "rA": rA, "rB": rB, "rC": rC, "const": const, "tail": tail}
+    rX = memory[pc+4]
+    rY = memory[pc+5]
+    rZ = memory[pc+6]
+
+    return {"op": op, "rA": rA, "rB": rB, "rC": rC, "rX": rX, "rY": rY, "rZ": rZ, "const": const, "tail": tail}
 
 def decoder_t(in_dict):
     tail = in_dict["tail"]
@@ -18,8 +22,8 @@ def decoder_t(in_dict):
 
     if tail >> 4 in (0xF, 0x0):
         simd = 0
-    elif tail >> 4 == 0x1:
-        simd = 1
+    elif tail >> 4 in (0x1, 0x2):
+        simd = tail >> 4
     else:
         status = 1
     
@@ -66,11 +70,18 @@ def writeback(in_dict, register):
     register[0][destM] = m
 
     if register_index == 0:
-        if flag: register[0][destE] = e
-    elif register_index == 1:
+        if destE == 0xFF:
+            pass
+        elif flag:
+            register[0][destE] = e
+    elif register_index in (1, 2):
         if destE[0] == 0:
-            register[1][destE[1]] = e
-        else:
-            register[1][destE[1] & 0x3F][destE[1] >> 7] = e[0]
-    
+            register[register_index][destE[1]] = e
+        elif destE[0] == 1:
+            register_addr = [destE[1] & 0x7F, destE[1] & 0x3F][register_index - 1]
+            register_segm = [destE[1] >> 7, destE[1] >> 6][register_index - 1]
+            register[register_index][register_addr][register_segm] = e[0]
+        elif destE[0] == 2:
+            for i, de in enumerate(destE[1:]):
+                register[0][de] = e[i]
 

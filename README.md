@@ -29,12 +29,14 @@ Format: `00 00 00 00000000 00`
 * 8th byte: tail
 
 #### Type B
-Format: `00 00 00 00 000000 00`
+Format: `00 00 00 00 00 00 00 00`
 * 1st byte: opcode
 * 2nd byte: rA
 * 3rd byte: rB
 * 4th byte: rC
-* 5-7th bytes: reserved
+* 5th byte: rX
+* 6th byte: rY
+* 7th byte: rZ
 * 8th byte: tail
 
 ### Instruction set
@@ -98,7 +100,28 @@ Basic intruction-set.
 | 55, 10                    | orts128 %rA,%rB,%rC          | 55 rA rB rC 000000 10    | rC = rA \| rB                                        |
 | 56, 10                    | notts128 %rA,%rB,%rC         | 56 rA rB rC 000000 10    | rC = ~rA                                             |
 | 57, 10                    | xorts128 %rA,%rB,%rC         | 57 rA rB rC 000000 10    | rC = rA ^ rB                                         |
+| 42, 11                    | rcopysn128d %rA,%rB,%rC      | 42 rA rB rC 000000 11    | copy rA(SIMD128) to (rB, rC)(basic)                  |
+| 43, 11                    | rcopyns128d %rA,%rB,%rC      | 43 rA rB rC 000000 11    | copy (rA, rB)(basic) to rA(SIMD128)                  |
 
+#### SIMD256
+256bit(64x4) SIMD instruction-set
+
+| opcode and tail<br>(hex)  | format<br>(assembly)              | format<br>(bytecode)     | Explain                                              |
+|---------------------------|-----------------------------------|--------------------------|------------------------------------------------------|
+| 41, 20                    | rcopyss256 %rA,%rB                | 41 rA rB 00000000 20     | copy rA to rB (both are SIMD256 registers)           |
+| 42, 20                    | rcopysn256 %rA,%rB                | 42 rA rB 00000000 20     | copy rA(SIMD256 segment) to rB(basic)                |
+| 43, 20                    | rcopyns256 %rA,%rB                | 43 rA rB 00000000 20     | copy rA(basic) to rB(SIMD256 segment)                |
+| 44, 20                    | rcopyns256all %rA,%rB             | 44 rA rB 00000000 20     | copy and fill rA(basic) to rB(SIMD256)               |
+| 50, 20                    | addts256 %rA,%rB,%rC              | 50 rA rB rC 000000 20    | rC = rA + rB                                         |
+| 51, 20                    | subts256 %rA,%rB,%rC              | 51 rA rB rC 000000 20    | rC = rA - rB                                         |
+| 52, 20                    | shrts256 %rA,%rB,%rC              | 52 rA rB rC 000000 20    | rC = rA >> rB                                        |
+| 53, 20                    | shlts256 %rA,%rB,%rC              | 53 rA rB rC 000000 20    | rC = rA << rB                                        |
+| 54, 20                    | andts256 %rA,%rB,%rC              | 54 rA rB rC 000000 20    | rC = rA & rB                                         |
+| 55, 20                    | orts256 %rA,%rB,%rC               | 55 rA rB rC 000000 20    | rC = rA \| rB                                        |
+| 56, 20                    | notts256 %rA,%rB,%rC              | 56 rA rB rC 000000 20    | rC = ~rA                                             |
+| 57, 20                    | xorts256 %rA,%rB,%rC              | 57 rA rB rC 000000 20    | rC = rA ^ rB                                         |
+| 42, 21                    | rcopysn256q %rA,%rB,%rC,%rX,%rZ   | 42 rA rB rC rX rZ 00 21  | copy rA(SIMD256) to (rB, rC, rX, rZ)(basic)          |
+| 43, 21                    | rcopyns256q %rA,%rB,%rC,%rX,%rZ   | 43 rA rB rC rX rZ 00 21  | copy (rA, rB, rX, rZ)(basic) to rA(SIMD256)          |
 
 ### Registers
 * Generic Registers: 00-FD
@@ -118,14 +141,27 @@ Basic intruction-set.
 | PC            | -       | Program Counter                           |
 
 * SIMD128 Registers: 00-7F
-* The high or low segment flag: 0x80
+* The high or low segment flag mask: 0x80
 * The segment of registers are used only rcopyns128 and rcopysn128 instructions.
 
 | Index (hex)   | Name      | Explain                               |
 |---------------|-----------|---------------------------------------|
 | 0 - 7F        | s128b0-7f | SIMD128 registers                     |
-| 0 - 7F        | s128b0-7fh| high segments of SIMD128 registers    |
-| 80 - FF       | s128b0-7fl| low segments of SIMD128 registers     |
+| 0 - 7F        | s128b0-7fh| high segment of SIMD128 registers     |
+| 80 - FF       | s128b0-7fl| low segment of SIMD128 registers      |
+
+* SIMD256 Registers: 00-3F
+* The w, x, y, z segment flag mask: 0xC0
+* The segment of registers are used only rcopyns256 and rcopysn256 instructions.
+
+| Index (hex)   | Name      | Explain                               |
+|---------------|-----------|---------------------------------------|
+| 0 - 3F        | s256b0-3f | SIMD256 registers                     |
+| 0 - 3F        | s256b0-3fw| w segment of SIMD256 registers        |
+| 40 - 7F       | s256b0-3fx| x segment of SIMD256 registers        |
+| 80 - BF       | s256b0-3fy| y segment of SIMD256 registers        |
+| C0 - FF       | s256b0-3fz| z segment of SIMD256 registers        |
+
 
 ## TODO
 * Add more examples
