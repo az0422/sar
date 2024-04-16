@@ -166,3 +166,4 @@ Basic intruction-set.
 ## TODO
 * Add more examples
 * Implement half width SIMD instructions.
+* Make GUI simulator.
