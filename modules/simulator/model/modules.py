@@ -66,9 +66,13 @@ def writeback(in_dict, register):
     destM = in_dict["destM"]
 
     flag = in_dict["flag"]
+    all_flag = in_dict["all_flag"]
 
     register[0][destM] = m
 
+    if not all_flag:
+        return
+    
     if register_index == 0:
         if destE == 0xFF:
             pass

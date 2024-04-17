@@ -59,7 +59,7 @@ class Model:
 
         # pipe 6
         wb_in = {"data_e": memory_dict["data_e"], "data_m": memory_dict["data_m"], "destE": decoder_b_dict["destE"],
-                 "destM": decoder_b_dict["destM"], "flag": self.cc & decoder_b_dict["cc"], "simd": simd}
+                 "destM": decoder_b_dict["destM"], "flag": self.cc & decoder_b_dict["cc"], "simd": simd, "all_flag": 1}
 
         writeback(wb_in, self.register)
 
