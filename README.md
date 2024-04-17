@@ -146,10 +146,9 @@ Basic intruction-set.
 
 | Index (hex)   | Name      | Explain                               |
 |---------------|-----------|---------------------------------------|
-| 0 - 7E        | s128b0-7e | SIMD128 registers                     |
-| 7F            | s128b7f   | SIMD128 null register                 |
-| 0 - 7E        | s128b0-7eh| high segment of SIMD128 registers     |
-| 80 - FE       | s128b0-7el| low segment of SIMD128 registers      |
+| 0 - 7F        | s128b0-7f | SIMD128 registers                     |
+| 0 - 7F        | s128b0-7fh| high segment of SIMD128 registers     |
+| 80 - FF       | s128b0-7fl| low segment of SIMD128 registers      |
 
 * SIMD256 Registers: 00-3F
 * The w, x, y, z segment flag mask: 0xC0
@@ -157,12 +156,11 @@ Basic intruction-set.
 
 | Index (hex)   | Name      | Explain                               |
 |---------------|-----------|---------------------------------------|
-| 0 - 3E        | s256b0-3e | SIMD256 registers                     |
-| 3F            | s256b3f   | SIMD256 null register                 |
-| 0 - 3E        | s256b0-3ew| w segment of SIMD256 registers        |
-| 40 - 7E       | s256b0-3ex| x segment of SIMD256 registers        |
-| 80 - BE       | s256b0-3ey| y segment of SIMD256 registers        |
-| C0 - FE       | s256b0-3ez| z segment of SIMD256 registers        |
+| 0 - 3F        | s256b0-3f | SIMD256 registers                     |
+| 0 - 3F        | s256b0-3fw| w segment of SIMD256 registers        |
+| 40 - 7F       | s256b0-3fx| x segment of SIMD256 registers        |
+| 80 - BF       | s256b0-3fy| y segment of SIMD256 registers        |
+| C0 - FF       | s256b0-3fz| z segment of SIMD256 registers        |
 
 
 ## TODO

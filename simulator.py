@@ -1,7 +1,7 @@
 import sys
 from modules.simulator.tasks import *
 
-version = "v3.1"
+version = "v3.0"
 
 program = open(sys.argv[1], "br").read()
 dmp = False

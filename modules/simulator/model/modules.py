@@ -70,7 +70,9 @@ def writeback(in_dict, register):
     register[0][destM] = m
 
     if register_index == 0:
-        if flag:
+        if destE == 0xFF:
+            pass
+        elif flag:
             register[0][destE] = e
     elif register_index in (1, 2):
         if destE[0] == 0:
@@ -82,10 +84,4 @@ def writeback(in_dict, register):
         elif destE[0] == 2:
             for i, de in enumerate(destE[1:]):
                 register[0][de] = e[i]
-    
-    register[0][0xFF] = 0x00
-
-    for r in register[1:]:
-        r[-1] = [0x00 for _ in range(len(r))]
-        
 

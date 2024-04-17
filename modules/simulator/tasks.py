@@ -1,6 +1,5 @@
-from time import time
-
 from .model.model import Model
+from time import time
 
 def run(program):
     machine = Model(program)
